@@ -14,8 +14,8 @@ context.onstatechange = function() {
 // var soundUrl = "sounds/s1.aac";  //45s-mono.wav
 //var irUrl = "IRs/aalto2016_N1.wav";
 
-var soundUrlArr=["http://oozvvnyjf.bkt.clouddn.com/1.wav","http://oozvvnyjf.bkt.clouddn.com/2.wav","http://oozvvnyjf.bkt.clouddn.com/3.wav","http://oozvvnyjf.bkt.clouddn.com/4.wav",
-              "http://oozvvnyjf.bkt.clouddn.com/5.wav","http://oozvvnyjf.bkt.clouddn.com/6.wav","http://oozvvnyjf.bkt.clouddn.com/7.wav","http://oozvvnyjf.bkt.clouddn.com/8.wav","http://oozvvnyjf.bkt.clouddn.com/9.wav"]
+var soundUrlArr=["http://musicfiles.oss-cn-shenzhen.aliyuncs.com/1.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/2.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/3.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/4.wav",
+              "http://musicfiles.oss-cn-shenzhen.aliyuncs.com/5.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/6.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/7.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/8.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/9.wav"]
 
 // var soundUrlArr=["sounds/1.wav","sounds/2.wav","sounds/3.wav","sounds/4.wav","sounds/5.wav",
 // "sounds/6.wav","sounds/7.wav","sounds/8.wav","sounds/9.wav"]
@@ -409,6 +409,11 @@ function mouseActionLocal(angleXY) {
     var krpano=document.getElementById('krpanoSWFObject');
     function playToggles(seek){
             console.log(paused);
+            if(oLoading.style.display=='block'){
+                krpano.call(' plugin[video].pause(); '); 
+            }else{
+                krpano.call(' plugin[video].play(); ');
+            }
     		if(paused){    			
 
     		    sound = context.createBufferSource();
