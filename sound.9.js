@@ -11,22 +11,16 @@ context.onstatechange = function() {
     if (context.state === "suspended") { context.resume(); }
 }
 
-// var soundUrl = "sounds/s1.aac";  //45s-mono.wav
-//var irUrl = "IRs/aalto2016_N1.wav";
 
-// <<<<<<< HEAD
-// var soundUrlArr=["http://musicfiles.oss-cn-shenzhen.aliyuncs.com/1.wav","http://oozvvnyjf.bkt.clouddn.com/2.wav","http://oozvvnyjf.bkt.clouddn.com/3.wav","http://oozvvnyjf.bkt.clouddn.com/4.wav",
-//               "http://oozvvnyjf.bkt.clouddn.com/5.wav","http://oozvvnyjf.bkt.clouddn.com/6.wav","http://oozvvnyjf.bkt.clouddn.com/7.wav","http://oozvvnyjf.bkt.clouddn.com/8.wav","http://oozvvnyjf.bkt.clouddn.com/9.wav"]
-// =======
 var soundUrlArr=["http://musicfiles.oss-cn-shenzhen.aliyuncs.com/1.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/2.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/3.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/4.wav",
               "http://musicfiles.oss-cn-shenzhen.aliyuncs.com/5.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/6.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/7.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/8.wav","http://musicfiles.oss-cn-shenzhen.aliyuncs.com/9.wav"]
-// >>>>>>> a19eb6f658ed318fd3651ded2e2f6210c3d3b7f8
 
 // var soundUrlArr=["sounds/testAAC1.aac","sounds/testAAC2.aac","sounds/testAAC1.aac","sounds/4.wav","sounds/5.wav",
 // "sounds/6.wav","sounds/7.wav","sounds/8.wav","sounds/9.wav"]
 
 var soundBuffer, sound, soundBuffer1,soundBuffer2,soundBuffer3,soundBuffer4, soundBuffer5,soundBuffer6,
-    soundBuffer7,soundBuffer8,soundBuffer9,drt1,drt2,drt3,drt4,drt5,drt6,drt7,drt8,drt9,pausedFlag;
+    soundBuffer7,soundBuffer8,soundBuffer9,drt1,drt2,drt3,drt4,drt5,drt6,drt7,drt8,drt9,pausedFlag,startedAt,pausedAt,paused=true;
+var browser=window.navigator.userAgent;
     // pausedFlag是音源为undefined时候的标志
 
 // initialize encoder
@@ -241,7 +235,17 @@ var assignSample2SoundBuffer = function(decodedBuffer) {
         {
             clearInterval(timers);
             //alert("The 3D sound has been loaded. You can click the play button to play it");
-			oLoading.style.display='none';
+			      oLoading.style.display='none';
+            if(browser.toLowerCase().indexOf('mobile')<0)
+            {
+                krpano.call(' plugin[video].play(); ');
+                paused = false;
+                clearInterval(timer);
+                sound.buffer = soundBuffer1;
+                sound.loop = true;
+                sound.connect(encoder.in);
+                sound.start(0); 
+            }
         }
     }
     var assignSample2SoundBuffer2 = function(decodedBuffer) {
@@ -460,11 +464,7 @@ function mouseActionLocal(angleXY) {
     encoder.updateGains();
 }
    
-    var i=0;
-    var startedAt;
-    var pausedAt;
-    var paused=true;
-    var browser=window.navigator.userAgent;
+   
     //alert(browser);
     //改变声音大小
     function changeVolume(volumeBarPoint){
